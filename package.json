@@ -1,0 +1,50 @@
+{
+    "name": "bin-packing-problem",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.jsx",
+    "scripts": {
+        "dev": "webpack --mode development --env.dist=false",
+        "dev:dist": "webpack --mode development",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+        "build": "webpack --mode production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pooya1361/Caspeco.git"
+    },
+    "author": "Pouya",
+    "license": "ISC",
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ]
+    },
+    "bugs": {
+        "url": "https://github.com/pooya1361/Caspeco/issues"
+    },
+    "homepage": "https://github.com/pooya1361/Caspeco#readme",
+    "devDependencies": {
+        "@babel/core": "^7.4.5",
+        "@babel/preset-env": "^7.4.5",
+        "@babel/preset-react": "^7.0.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^8.0.6",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "css-loader": "^2.1.1",
+        "html-loader": "^0.5.5",
+        "html-webpack-plugin": "^3.2.0",
+        "react-hot-loader": "^4.8.8",
+        "style-loader": "^0.23.1",
+        "webpack": "^4.32.2",
+        "webpack-cli": "^3.3.2",
+        "webpack-dev-server": "^3.4.1"
+    },
+    "dependencies": {
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6"
+    }
+}
