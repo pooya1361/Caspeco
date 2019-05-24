@@ -5,7 +5,7 @@
     "main": "index.jsx",
     "scripts": {
         "predeploy": "yarn run build",
-        "deploy": "gh-pages -d build",
+        "deploy": "gh-pages -d dist",
         "dev": "webpack --mode development --env.dist=false",
         "dev:dist": "webpack --mode development",
         "test": "echo \"Error: no test specified\" && exit 1",
