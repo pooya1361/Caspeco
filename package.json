@@ -4,6 +4,8 @@
     "description": "",
     "main": "index.jsx",
     "scripts": {
+        "predeploy": "yarn run build",
+        "deploy": "gh-pages -d build",
         "dev": "webpack --mode development --env.dist=false",
         "dev:dist": "webpack --mode development",
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,7 +27,7 @@
     "bugs": {
         "url": "https://github.com/pooya1361/Caspeco/issues"
     },
-    "homepage": "https://github.com/pooya1361/Caspeco#readme",
+    "homepage": "https://github.com/pooya1361/Caspeco",
     "devDependencies": {
         "@babel/core": "^7.4.5",
         "@babel/preset-env": "^7.4.5",
@@ -45,6 +47,7 @@
     },
     "dependencies": {
         "@material-ui/core": "^4.0.0-rc.0",
+        "gh-pages": "^2.0.1",
         "react": "^16.8.6",
         "react-dom": "^16.8.6"
     }
