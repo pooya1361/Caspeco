@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Col, Row, Button, FormControl, Form } from 'react-bootstrap';
+import { Pack } from "./packing"
 
 
 class Index extends React.Component {
@@ -11,7 +12,7 @@ class Index extends React.Component {
             textValue: '',
             articles: [],
             bins: [],
-            binCount: 3,
+            numBoxes: 3,
             accuracy: 0
         }
     }
@@ -28,40 +29,16 @@ class Index extends React.Component {
         this.setState({ textValue: e.target.value })
     }
 
-    Pack(_art) {
-        const art = !!_arc ? _arc : [...this.state.articles].sort((a, b) => b - a)
-
+    distribute() {
         this.setState({ bins: [] })
-        const bins = []
-        for (let i = 0; i < this.state.binCount; i++) {
-            bins.push([])
-        }
-        art.forEach(x => {
-            const lightestBinIndex = this.getLightestBin(bins)
-            bins[lightestBinIndex].push(x)
-        })
+
+        const bins = Pack(this.state.articles, this.state.numBoxes)
 
         this.setState({
             bins: [...bins]
         })
 
-        return [...bins]
-
         this.forceUpdate();
-    }
-
-    getLightestBin(bins) {
-        let lightestBinIndex = 0
-        let lightestBinWeight = bins[0].reduce((a, b) => a + b, 0)
-        bins.forEach((x, i) => {
-            const tmp = x.reduce((a, b) => a + b, 0)
-            if (tmp < lightestBinWeight) {
-                lightestBinWeight = tmp
-                lightestBinIndex = i
-            }
-        })
-
-        return lightestBinIndex
     }
 
     addRandom() {
@@ -83,6 +60,10 @@ class Index extends React.Component {
         })
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+    }
+
     render() {
         const articleStyle = {
             padding: "3px",
@@ -95,16 +76,16 @@ class Index extends React.Component {
         }
 
         const articles = this.state.articles.map((x, index) =>
-            <span className="d-inline-flex" key={index} style={articleStyle}>{x}</span>
+            <div className="d-inline-flex"><span key={index} style={articleStyle}>{x}</span></div>
         )
 
         const packs = this.state.bins.map((x, i) =>
             <div key={i} className="w-25 d-inline-flex flex-column mb-4 p-2 justify-content-between m-2 shadow-sm" style={{
                 backgroundColor: "whitesmoke", border: "1px solid #dee2e6"
             }}>
-                <div className="mb-1">
+                <div className="mb-1 d-flex flex-wrap justify-content-center">
                     {x.map((y, i) =>
-                        <span className="d-inline-flex" key={i} style={articleStyle}>{y}</span>
+                        <div className="d-inline-flex"><span key={i} style={articleStyle}>{y}</span></div>
                     )}
                 </div>
                 <span className="text-center"><b>Vikt: </b>{x.reduce((a, b) => a + b, 0)}</span>
@@ -113,7 +94,7 @@ class Index extends React.Component {
 
         const avg = () => {
             if (this.state.articles.length > 0) {
-                return <span>Avg: {Math.round(this.state.articles.reduce((a, b) => a + b, 0) / this.state.binCount)}</span>
+                return <span>Genomsnitt: {Math.round(this.state.articles.reduce((a, b) => a + b, 0) / this.state.numBoxes)}</span>
 
             }
         }
@@ -123,9 +104,9 @@ class Index extends React.Component {
                     <Col md={3}>
                         <Row className="mb-3">
                             <Col md={12}>
-                                <Form>
+                                <Form onSubmit={this.handleSubmit}>
                                     <Form.Label>Antal Box:</Form.Label>
-                                    <Form.Control type="number" value={this.state.binCount} name="binCount" onChange={this.handleFormChange.bind(this)} />
+                                    <Form.Control type="number" value={this.state.numBoxes} name="numBoxes" onChange={this.handleFormChange.bind(this)} />
                                 </Form>
                             </Col>
                         </Row>
@@ -142,6 +123,7 @@ class Index extends React.Component {
                                     value={this.state.textValue}
                                     onChange={this.updateText.bind(this)}
                                     margin="normal"
+                                    placeholder="Ange vikt"
                                 />
                             </Col>
                             <Col md={5}>
@@ -163,7 +145,7 @@ class Index extends React.Component {
                         </Row>
                         <Row className="mb-3">
                             <Col md={6}>
-                                <Button variant="success" onClick={this.Pack.bind(this)}>Dela ut</Button>
+                                <Button variant="success" onClick={this.distribute.bind(this)}>Dela ut</Button>
                             </Col>
                             <Col md={6} className="align-items-center d-flex">
                                 {avg()}
