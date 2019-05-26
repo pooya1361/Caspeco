@@ -72,7 +72,8 @@ class Index extends React.Component {
             backgroundColor: "#edf3fc",
             minWidth: "30px",
             justifyContent: "center",
-            border: "1px solid #dee2e6"
+            border: "1px solid #dee2e6",
+            textAlign: "center"
         }
 
         const articles = this.state.articles.map((x, index) =>
